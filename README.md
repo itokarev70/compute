@@ -1,18 +1,8 @@
-To run from command line:
-
-```
-compute threshold limit
-```
-
-Example:
-```
-./compute 5 100
-```
 Assumptions:
 
 - Compile is in `Unix(LF)` format. Encoding: `UTF-8`
 
-- One number per line
+- Numbers (except threshold and limit) are entered one per line
 
 - `Enter` is pressed after each number
 
