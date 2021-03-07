@@ -1,5 +1,5 @@
 awk 'NR>=4 && NR<= 70' compile > compute.cpp
-g++ -o compute compute.cpp
+g++ -std=c++11 -o compute compute.cpp
 exit
 #include <iostream>
 #include <sstream>
