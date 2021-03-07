@@ -10,6 +10,8 @@ Example:
 ```
 Assumptions:
 
+- Compile is in `Unix(LF)` format. Encoding: `UTF-8`
+
 - One number per line
 
 - `Enter` is pressed after each number
