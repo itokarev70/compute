@@ -1,0 +1,70 @@
+awk 'NR>=4 && NR<= 70' compile > compute.cpp
+g++ -o compute compute.cpp
+exit
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <vector>
+#include <algorithm>
+#include <stdlib.h>
+
+using namespace std;
+
+#define MAX_LINE_COUNT 100
+
+int main(int argc, char* argv[])
+{
+    const double zero = 0.0;
+    double threshold = zero;
+    double limit = zero;
+    double sum = zero;
+    int lineCount = 0;
+
+    vector<double> outputs;
+    auto write_output = [](const double& d) { cout << fixed << setprecision(1) << d << endl; };
+    // Command line arguments parsing and validation:
+    
+    stringstream ssThreshold(argv[1]);    
+    if (!(ssThreshold >> threshold))
+        return 0;        
+
+    stringstream ssLimit(argv[2]);
+    if (!(ssLimit >> limit))
+        return 0;
+    
+    while (cin.peek() != EOF && lineCount < MAX_LINE_COUNT)    
+    {
+        string input;
+        getline(cin, input);
+        lineCount++;
+        if (!input.empty())
+        {
+            double number = zero;
+            double output = zero;
+            stringstream ssInput(input);            
+            ssInput >> number;
+            
+            // apply threshold rule:
+            double diff = number - threshold;
+            if (diff > zero)
+                output = diff;
+
+            // apply limit rule:
+            double sumDiff = sum + output - limit;
+            if (sumDiff > zero)
+                output -= sumDiff;//adjust output value
+
+            if (output < zero)
+                output = zero;
+
+            outputs.push_back(output);
+            sum += output;
+        }
+    }        
+    // write output values:
+    
+    for_each(outputs.cbegin(), outputs.cend(), write_output);
+    
+    //write sum:
+    std::cout << fixed << setprecision(1) << sum << endl;
+}
